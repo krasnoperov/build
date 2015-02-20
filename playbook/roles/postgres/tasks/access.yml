@@ -1,0 +1,8 @@
+---
+- name: Listen on desired port
+  lineinfile: >
+    dest=/etc/postgresql/{{postgres_version}}/main/postgresql.conf
+    regexp="^port"
+    insertafter="^#port"
+    line="port = {{postgres_port}}"
+  notify: Reload postgresql

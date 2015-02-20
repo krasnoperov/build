@@ -1,0 +1,5 @@
+---
+- include: packages.yml tags=nginx,packages
+- include: iptables.yml tags=nginx,iptables
+- include: assets.yml tags=nginx,assets
+- include: config.yml tags=nginx,config

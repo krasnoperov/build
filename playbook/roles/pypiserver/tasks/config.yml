@@ -1,0 +1,3 @@
+---
+- name: Basic Auth credentials
+  htpasswd: path={{ pypiserver_home }}/.htaccess name={{pypiserver_login}} password={{pypiserver_password}}

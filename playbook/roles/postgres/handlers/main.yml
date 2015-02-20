@@ -1,0 +1,12 @@
+---
+- name: Reload postgresql
+  service: name=postgresql state=reloaded
+  sudo_user: root
+
+- name: Restart postgresql
+  service: name=postgresql state=restarted
+  sudo_user: root
+
+- name: Reload iptables rules
+  service: name=iptables-persistent state=reloaded
+  sudo_user: root

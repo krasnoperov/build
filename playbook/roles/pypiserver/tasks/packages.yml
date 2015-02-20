@@ -1,0 +1,37 @@
+---
+- name: Install required system packages
+  apt: >
+    pkg={{item}}
+    state=present
+    update-cache=yes
+    cache_valid_time=3600
+  with_items:
+    - build-essential
+    - python-dev
+    - python-virtualenv
+    - python-passlib
+
+- name: Create Virtualenv
+  sudo_user: '{{pypiserver_user}}'
+  shell: '{{pypiserver_python_virtualenv}} {{pypiserver_virtualenv}} creates={{pypiserver_virtualenv}}'
+
+- name: Install pypiserver
+  pip: >
+    name={{item}}
+    state=present
+    virtualenv={{ pypiserver_virtualenv }}
+    virtualenv_command='{{pypiserver_python_virtualenv}}'
+    executable={{pypiserver_python_pip}}
+  sudo_user: "{{ pypiserver_user }}"
+  with_items: pypiserver_requirements
+
+- name: Create directories
+  file: >
+    path={{ item }}
+    state=directory
+    owner={{ pypiserver_user }}
+    group={{ pypiserver_group }}
+  with_items:
+    - "{{ pypiserver_data }}"
+    - "{{ pypiserver_data }}/packages"
+    - "{{ pypiserver_home }}/logs"

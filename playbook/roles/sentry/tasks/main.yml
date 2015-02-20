@@ -1,0 +1,9 @@
+---
+- include: users.yml tags=sentry,users
+- include: database.yml tags=sentry,database
+- include: packages.yml tags=sentry,packages,sentry_packages
+- include: config.yml tags=sentry,config
+- include: app.yml tags=sentry,app
+- include: assets.yml tags=sentry,assets
+- include: upstart.yml tags=sentry,sentry_upstart,upstart
+- include: vhost.yml  tags=sentry,vhost,sentry_vhost

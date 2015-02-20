@@ -1,0 +1,26 @@
+---
+- name: Sentry | Install required system packages.
+  apt: >
+    pkg={{item}}
+    state=installed
+    update-cache=yes
+  with_items:
+    - python-dev
+    - python-pip
+    - libpq-dev
+    - libxml2-dev
+    - libxslt1-dev
+
+- name: Create Virtualenv
+  sudo_user: '{{sentry_user}}'
+  shell: '{{python_sentry_virtualenv}} {{sentry_virtualenv}} creates={{sentry_virtualenv}}'
+
+- name: Install Sentry
+  pip: >
+    name={{ item }}
+    state=present
+    virtualenv={{ sentry_virtualenv }}
+    virtualenv_command='{{python_sentry_virtualenv}}'
+    executable={{python_sentry_pip}}
+  sudo_user: "{{ sentry_user }}"
+  with_items: sentry_pip_pkgs

@@ -1,0 +1,28 @@
+---
+- name: Install sentry upstart job
+  template: >
+    src=sentry.upstart.conf.j2
+    dest=/etc/init/sentry.conf
+    owner=root
+    group=root
+    mode=0644
+
+- name: Install sentry celery upstart job
+  template: >
+    src=sentry-celery.conf.j2
+    dest=/etc/init/sentry-celery.conf
+    owner=root
+    group=root
+    mode=0644
+
+- name: Restart daemon and enable it for system startup
+  service: >
+    name='sentry'
+    state=restarted
+    enabled=yes
+
+- name: Restart daemon and enable it for system startup
+  service: >
+    name='sentry-celery'
+    state=restarted
+    enabled=yes

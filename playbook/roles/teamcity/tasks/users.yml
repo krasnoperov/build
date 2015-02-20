@@ -1,0 +1,6 @@
+---
+- name: Create teamcity user
+  user: name={{ teamcity_user }} home={{ teamcity_home }} comment="Teamcity User" generate_ssh_key=yes shell="/bin/bash"
+
+- name: Sudo without password
+  template: src=teamcity_sudo.j2 dest=/etc/sudoers.d/teamcity mode=640

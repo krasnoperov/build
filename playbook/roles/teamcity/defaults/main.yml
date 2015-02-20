@@ -1,0 +1,21 @@
+teamcity_servername: teamcity.{{domain}}
+
+teamcity_version: "9.0.2"
+teamcity_home: "/home/teamcity"
+
+teamcity_database_name: teamcity_db
+teamcity_database_user: teamcity_user
+teamcity_database_password: teamcity_password
+
+teamcity_user: teamcity
+teamcity_port: 8111
+teamcity_download_path: "{{teamcity_home}}/TeamCity-{{teamcity_version}}.tar.gz"
+teamcity_installation_directory: "{{teamcity_home}}"
+teamcity_installation_path: "{{teamcity_home}}/TeamCity"
+teamcity_data_path: "{{teamcity_home}}/TeamCityData"
+teamcity_download_url: "http://download.jetbrains.com/teamcity/TeamCity-{{ teamcity_version }}.tar.gz"
+teamcity_jdbc_url: "http://jdbc.postgresql.org/download/postgresql-9.3-1101.jdbc41.jar"
+
+teamcity_encoding: 'UTF8'
+teamcity_collate: '{{locale}}'
+teamcity_ctype: '{{locale}}'

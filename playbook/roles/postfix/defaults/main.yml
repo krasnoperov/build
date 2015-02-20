@@ -1,0 +1,3 @@
+mail_domain: 'mail.{{domain}}'
+mail_selector: server
+mail_keydomain: 'server._domainkey.{{mail_domain}}'

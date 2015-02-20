@@ -1,0 +1,29 @@
+---
+sentry_servername: sentry.{{domain}}
+sentry_user: sentry
+sentry_group: sentry
+sentry_home: "/home/{{sentry_user}}"
+sentry_port: 8080
+sentry_database_name: sentry_db
+sentry_database_user: sentry_user
+sentry_database_password: sentry_password
+sentry_virtualenv: "{{ sentry_home }}/venv"
+sentry_pip_pkgs:
+  - sentry
+  - uwsgi
+  - psycopg2
+sentry_media_root: "{{sentry_home}}/media/"
+sentry_static_root: "{{sentry_home}}/static/"
+
+sentry_email: sentry@{{domain}}
+sentry_secretkey: "secret"
+
+python_sentry_virtualenv: virtualenv
+python_sentry_pip: pip
+
+sentry_encoding: 'UTF8'
+sentry_collate: '{{locale}}'
+sentry_ctype: '{{locale}}'
+
+sentry_celery_timeout: 60
+sentry_redis_port: 6379

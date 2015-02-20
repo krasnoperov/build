@@ -1,0 +1,6 @@
+---
+- include: packages.yml tags=packages,postfix
+- include: keys.yml tags=keys,postfix
+- include: config.yml tags=config,postfix
+- include: iptables.yml tags=iptables,postfix
+- include: testmail.yml tags=testmail,postfix

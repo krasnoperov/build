@@ -1,0 +1,10 @@
+---
+- name: Packages | Install required system packages.
+  apt: >
+    pkg={{item}}
+    state=present
+    update-cache=yes
+    cache_valid_time=3600
+  with_items:
+    - locales
+    - language-pack-ru

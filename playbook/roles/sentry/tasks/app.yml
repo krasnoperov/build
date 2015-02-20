@@ -1,0 +1,6 @@
+---
+- name: Initialize database
+  shell: '{{sentry_virtualenv}}/bin/sentry --config=/etc/sentry.conf.py upgrade --noinput'
+
+- name: Collect static
+  shell: '{{sentry_virtualenv}}/bin/sentry --config=/etc/sentry.conf.py collectstatic --noinput'

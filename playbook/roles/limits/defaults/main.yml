@@ -1,0 +1,2 @@
+limits_user: www-data
+limits_max_open_files: 65535

@@ -1,0 +1,7 @@
+---
+- include: users.yml tags=teamcity,users
+- include: database.yml tags=teamcity,database
+- include: packages.yml tags=teamcity,packages
+- include: app.yml tags=teamcity,app
+- include: config.yml tags=teamcity,config
+- include: vhost.yml  tags=teamcity,vhost

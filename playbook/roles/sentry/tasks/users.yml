@@ -1,0 +1,6 @@
+---
+- name: Create sentry group
+  group: name={{ sentry_group }}
+
+- name: Create sentry user
+  user: name={{ sentry_user }} group={{sentry_group}} home={{ sentry_home }} comment="Sentry User" shell="/bin/bash"

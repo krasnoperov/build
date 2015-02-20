@@ -1,0 +1,26 @@
+description   "Sentry"
+
+start on runlevel [2345]
+stop on runlevel [06]
+respawn
+
+script
+  exec {{ sentry_virtualenv }}/bin/uwsgi --master \
+      --socket :{{sentry_port}} \
+      --home {{ sentry_virtualenv }} \
+      --chdir {{ sentry_home }} \
+      --env SENTRY_CONF=/etc/sentry.conf.py \
+      --module sentry.wsgi:application \
+      --single-interpreter \
+      --processes 2 \
+      --threads 4 \
+      --max-requests 1000 \
+      --uid {{sentry_user}} \
+      --gid {{sentry_group}} \
+      --post-buffering=65536 \
+      --thunder-lock \
+      --disable-logging \
+      --enable-threads \
+      --log-x-forwarded-for \
+      --die-on-term
+end script

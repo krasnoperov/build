@@ -1,0 +1,23 @@
+description   "Sentry Celery"
+
+start on runlevel [2345]
+stop on runlevel [06]
+respawn
+
+kill timeout {{ sentry_celery_timeout }}
+kill signal SIGURG
+
+pre-stop script
+    exec kill -TERM `cat {{ sentry_home }}/sentry-celery.pid`
+end script
+
+setuid {{ sentry_user }}
+setgid {{ sentry_group }}
+chdir  {{ sentry_home }}
+
+script
+   exec {{ sentry_virtualenv }}/bin/sentry --config=/etc/sentry.conf.py celery worker -B \
+        --workdir={{ sentry_home }} \
+        --pidfile={{ sentry_home }}/sentry-celery.pid \
+        --loglevel=CRITICAL
+end script

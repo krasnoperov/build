@@ -1,0 +1,55 @@
+upstream pypi {
+    server                  127.0.0.1:{{ pypiserver_port }};
+}
+
+server {
+    listen 80;
+    server_name             {{pypiserver_servername}};
+
+    location / {
+      if ($request_method = GET) {
+        rewrite  ^ https://$host$request_uri? permanent;
+      }
+      return 405;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name {{pypiserver_servername}};
+
+    ssl on;
+    ssl_certificate           /etc/pki/{{pypiserver_servername}}.crt;
+    ssl_certificate_key       /etc/pki/{{pypiserver_servername}}.key;
+
+    client_max_body_size 100m;
+
+    auth_basic           "Beware of humans!";
+    auth_basic_user_file {{pypiserver_home}}/.htaccess;
+
+    root  {{pypiserver_data}};
+
+    access_log              /var/log/nginx/access.log;
+    error_log               /var/log/nginx/error.log;
+
+    location ~ /packages/ {
+        error_page 418 = @proxy_to_app;
+        if ($request_method != GET) {
+            return 418;
+        }
+        try_files $uri @proxy_to_app;
+    }
+
+    location / {
+        error_page 418 = @proxy_to_app;
+        return 418;
+    }
+    location @proxy_to_app {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        add_header Pragma "no-cache";
+        proxy_pass http://pypi;
+    }
+}

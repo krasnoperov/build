@@ -1,0 +1,8 @@
+- name: Make Nginx SSL directory
+  file: dest='/etc/nginx/ssl/' state=directory
+
+- name: Copy Nginx SSL
+  copy: src={{item}} dest=/etc/nginx/ssl/{{item}}
+  with_items:
+    - sentry.crt
+    - sentry.key

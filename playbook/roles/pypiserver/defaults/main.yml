@@ -1,0 +1,2 @@
+pypiserver_login: 'pypi_user'
+pypiserver_password: 'pypi_password'

@@ -1,0 +1,7 @@
+---
+- name: Configure Sentry
+  template: >
+    src=sentry.conf.py.j2
+    dest=/etc/sentry.conf.py
+    owner=www-data
+    group=www-data mode=0644

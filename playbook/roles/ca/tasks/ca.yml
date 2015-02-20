@@ -1,0 +1,27 @@
+---
+- name: Create PKI directory
+  file: dest='{{pki_cadir}}' state=directory
+
+- name: Create PKI newcerts directory
+  file: dest='{{pki_cadir}}newcerts' state=directory
+
+- name: Create PKI newcerts directory
+  file: dest='{{pki_cadir}}private' state=directory
+
+- name: Create PKI serial
+  copy: content='01' dest={{pki_cadir}}cacert.srl force=no
+
+- name: Create PKI index
+  copy: content='' dest={{pki_cadir}}index.txt force=no
+
+- name: Install openssl configuration file
+  template: src=openssl.conf.j2 dest={{pki_cadir}}openssl.conf
+
+- name: Create CA key
+  shell: openssl ecparam -out {{pki_cakey}} -name prime256v1 -genkey creates={{pki_cakey}}
+
+- name: Create CA cert
+  shell: openssl req -sha256 -x509 -new -key {{pki_cakey}} -out {{pki_cacrt}} -outform PEM -days 7300 -subj "{{pki_casubj}}" -config {{pki_cadir}}openssl.conf creates={{pki_cacrt}}
+
+- name: Change permissions
+  file: path={{pki_cakey}} mode=0600

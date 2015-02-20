@@ -1,0 +1,51 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+##
+# Vagrantfile.local.dist
+#
+# Template file for local Vagrant configuration. Copy this file to
+# Vagrantfile.local:
+#
+#   cp Vagrantfile.local.dist Vagrantfile.local
+#
+# If Vagrantfile.local exists it will be loaded by Vagrantfile to overwrite or
+# extend default Vagrant configuration.
+##
+
+require 'rbconfig'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  ##
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  ##
+  # config.vm.network :private_network,  ip: "3.3.3.3"
+
+  # enable NFS on non-windows platforms (increased performance \w symfony2)
+  # if !RbConfig::CONFIG['host_os'].match(/mswin|windows/i)
+  #   config.vm.synced_folder "./", "/vagrant", :id => "vagrant-root", :nfs => true, :group => false, :extra => "dmode=775,fmode=764"
+  # end
+
+  ##
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  ##
+  # config.vm.network :public_network,  ip: "192.168.1.12", bridge: 'en0: Wi-Fi (AirPort)'
+
+  ##
+  # If true, then any SSH connections made will enable agent forwarding.
+  # Default value: false
+  ##
+  # config.ssh.forward_agent = true
+
+  #
+  # Virtualbox: http://docs.vagrantup.com/v2/virtualbox/configuration.html
+  # VMware: http://docs.vagrantup.com/v2/vmware/configuration.html
+  ##
+  # config.vm.provider :virtualbox do |vb|
+  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
+  # end
+end

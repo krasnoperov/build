@@ -1,0 +1,14 @@
+pypiserver_servername: pypi.{{domain}}
+pypiserver_user: pypiserver
+pypiserver_group: pypiserver
+pypiserver_home: "/home/pypiserver"
+pypiserver_data: "{{ pypiserver_home }}/data"
+pypiserver_virtualenv: "{{ pypiserver_home }}/venv"
+pypiserver_port: 7001
+pypiserver_requirements:
+  - pypiserver
+  - passlib
+
+
+pypiserver_python_virtualenv: virtualenv --python=/usr/bin/python3.4
+pypiserver_python_pip: pip3

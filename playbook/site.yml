@@ -1,0 +1,67 @@
+---
+- name: Common Setup
+  gather_facts: yes
+  sudo: yes
+  hosts:
+    - all_servers
+  roles:
+    - { role: locale }
+    - { role: iptables }
+
+- name: Certificate Authority
+  gather_facts: no
+  sudo: yes
+  hosts:
+    - ca_servers
+  roles:
+    - { role: ca }
+
+- name: Configure Database servers
+  gather_facts: yes
+  sudo: yes
+  hosts:
+    - database_servers
+  roles:
+    - { role: postgres }
+    - { role: redis }
+
+- name: Configure Mail servers
+  gather_facts: no
+  sudo: yes
+  hosts:
+    - mail_servers
+  roles:
+    - { role: postfix }
+#
+- name: Configure Gateway servers
+  gather_facts: yes
+  sudo: yes
+  hosts:
+    - gateway_servers
+  roles:
+    - { role: nginx }
+
+- name: Configure Teamcity servers
+  gather_facts: yes
+  sudo: yes
+  hosts:
+    - teamcity_servers
+  roles:
+    - { role: teamcity }
+    - { role: ansible }
+
+- name: Configure pypi servers
+  gather_facts: no
+  sudo: yes
+  hosts:
+    - pypi_servers
+  roles:
+    - { role: pypiserver }
+
+- name: Configure Sentry servers
+  gather_facts: yes
+  sudo: yes
+  hosts:
+    - sentry_servers
+  roles:
+    - { role: sentry }

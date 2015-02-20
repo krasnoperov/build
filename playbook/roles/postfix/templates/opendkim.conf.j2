@@ -1,0 +1,18 @@
+Syslog             yes
+SyslogSuccess      yes
+
+{% if mail_debug is defined %}
+LogWhy             yes
+X-Header           yes
+{% endif %}
+
+Canonicalization   relaxed/relaxed
+Mode s
+
+KeyTable           file:/etc/postfix/dkim/keytable
+SigningTable       file:/etc/postfix/dkim/signingtable
+
+OversignHeaders    From
+
+ExternalIgnoreList file:/etc/postfix/dkim/trusted
+InternalHosts      file:/etc/postfix/dkim/trusted

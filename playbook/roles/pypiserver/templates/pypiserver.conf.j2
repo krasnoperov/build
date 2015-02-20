@@ -1,0 +1,13 @@
+description   "Pypiserver"
+
+start on runlevel [2345]
+stop on runlevel [06]
+respawn
+
+setuid {{ pypiserver_user }}
+setgid {{ pypiserver_group }}
+chdir  {{ pypiserver_home }}
+
+script
+  exec {{ pypiserver_virtualenv }}/bin/pypi-server -o -p {{ pypiserver_port }} -P {{ pypiserver_home }}/.htaccess {{ pypiserver_data }}/packages
+end script

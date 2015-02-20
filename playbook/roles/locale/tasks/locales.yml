@@ -1,0 +1,6 @@
+---
+- name: Reconfigure locales
+  shell: dpkg-reconfigure locales
+
+- name: Generate locales
+  locale_gen: name=ru_RU.UTF-8 state=present

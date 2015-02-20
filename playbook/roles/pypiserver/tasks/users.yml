@@ -1,0 +1,6 @@
+---
+- name: Create pypiserver group
+  group: name={{ pypiserver_group }}
+
+- name: Create pypiserver user
+  user: name={{ pypiserver_user }} group={{pypiserver_group}} home={{ pypiserver_home }} comment="PypiServer User" generate_ssh_key=no shell="/bin/bash"

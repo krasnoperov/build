@@ -1,0 +1,3 @@
+pki_subj: "/C=RU/ST=Siberia/L=Tomsk/O=krasnoperov.me/OU=Build/CN={{pki_host}}"
+pki_crt: /etc/pki/{{pki_host}}.crt
+pki_key: /etc/pki/{{pki_host}}.key

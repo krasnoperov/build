@@ -1,0 +1,21 @@
+---
+- name: Create PKI directory
+  file: dest='{{pki_cadir}}' state=directory
+
+- name: Slurp CA certificate
+  slurp: src={{ item }}
+  with_items:
+    - '{{pki_cacrt}}'
+  register: pki_cacrt_slurp
+  run_once: yes
+  delegate_to: '{{ groups.ca_servers[0]}}'
+
+- name: Write CA certificate
+  copy:
+    dest: "{{ item.item }}"
+    content: "{{ item.content | b64decode }}"
+    mode: 0644
+  with_items: pki_cacrt_slurp.results
+
+- name: Store CA certificate to system path
+  shell: 'cp {{pki_cacrt}} /usr/local/share/ca-certificates/{{groups.ca_servers[0]}}.crt && update-ca-certificates --fresh'

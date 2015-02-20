@@ -1,0 +1,6 @@
+---
+- include: issue.yml tags=issue,pki
+  when: mode=="issue"
+
+- include: trust.yml tags=trust,pki
+  when: mode=="trust"

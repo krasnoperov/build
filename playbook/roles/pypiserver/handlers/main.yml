@@ -1,0 +1,6 @@
+---
+- name: Restart pypiserver
+  service: name=pypiserver state=restarted enabled=yes
+
+- name: Reload nginx
+  service: name=nginx state=reloaded

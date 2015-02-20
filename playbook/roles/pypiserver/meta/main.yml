@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: pki, mode: "issue", pki_host: "{{pypiserver_servername}}", pki_owner: "www-data" }

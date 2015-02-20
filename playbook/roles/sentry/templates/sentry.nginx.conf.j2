@@ -1,0 +1,63 @@
+upstream sentry {
+    server                  127.0.0.1:{{ sentry_port }};
+}
+
+server {
+    listen 80;
+    server_name {{sentry_servername}};
+
+    location / {
+      if ($request_method = GET) {
+        rewrite  ^ https://$host$request_uri? permanent;
+      }
+      return 405;
+    }
+}
+
+server {
+
+    listen 443 ssl;
+    server_name             {{sentry_servername}};
+
+    ssl on;
+    ssl_certificate         /etc/nginx/ssl/sentry.crt;
+    ssl_certificate_key     /etc/nginx/ssl/sentry.key;
+
+    charset                 utf-8;
+
+    access_log              /var/log/nginx/sentry.access.log;
+    error_log               /var/log/nginx/sentry.error.log;
+
+    # keepalive + raven.js is a disaster
+    keepalive_timeout 0;
+
+    # use very aggressive timeouts
+    proxy_read_timeout 5s;
+    proxy_send_timeout 5s;
+    send_timeout 5s;
+    resolver_timeout 5s;
+    client_body_timeout 5s;
+
+    # buffer larger messages
+    client_max_body_size 150k;
+    client_body_buffer_size 150k;
+
+
+    location /_static/ {
+        alias {{sentry_static_root}};
+    }
+
+    location / {
+        uwsgi_pass          sentry;
+
+        uwsgi_param         Host                 $http_host;
+        uwsgi_param         X-Real-IP            $remote_addr;
+        uwsgi_param         X-Forwarded-Proto    $scheme;
+        uwsgi_param         X-Forwarded-For      $remote_addr;
+
+        include             uwsgi_params;
+
+        #add_header         Strict-Transport-Security "max-age=31536000";
+    }
+
+}

@@ -1,0 +1,27 @@
+---
+- name: Create PKI directory
+  file: dest='{{pki_cadir}}' state=directory
+
+- name: Create host key
+  command: openssl ecparam -out {{pki_key}} -name prime256v1 -genkey creates={{pki_key}}
+
+- name: Create host certificate request
+  command: openssl req -new -key {{pki_key}} -nodes -days 7300 -subj "{{pki_subj}}" creates={{pki_crt}}
+  register: request
+
+- name: Sign certificate request
+  when: request|changed
+  shell: echo '{{request.stdout}}' | openssl x509 -req -CA {{pki_cacrt}} -CAkey {{pki_cakey}} -CAcreateserial -days 7300
+  register: certificate
+  delegate_to: '{{item}}'
+  with_items: groups.ca_servers[0]
+
+- name: Store certificate
+  when: certificate|changed
+  copy: content='{{certificate.results[0].stdout}}' dest={{pki_crt}} force=no
+
+- name: Change permissions for certificate
+  file: path={{pki_crt}} mode=644 owner={{pki_owner}}
+
+- name: Change permissions for key
+  file: path={{pki_key}} mode=600 owner={{pki_owner}}

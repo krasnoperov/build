@@ -1,0 +1,4 @@
+pki_casubj: "/C=RU/ST=Siberia/L=Tomsk/O=krasnoperov.me/OU=DC/CN={{groups.ca_servers[0]}}"
+pki_cadir: /etc/pki/
+pki_cacrt: /etc/pki/cacert.pem
+pki_cakey: /etc/pki/cakey.pem

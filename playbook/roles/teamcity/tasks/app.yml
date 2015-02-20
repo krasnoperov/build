@@ -1,0 +1,17 @@
+- name: Download Team City
+  get_url: url={{ teamcity_download_url }} dest={{ teamcity_download_path }}
+- name: Unpack team city archive
+  command: "tar -xvzf {{ teamcity_download_path }} --directory {{ teamcity_installation_directory }} creates={{ teamcity_installation_path }}"
+
+- name: Change team city install directory owner
+  file: path={{ teamcity_installation_path }} owner={{ teamcity_user }} group={{ teamcity_user }} recurse=yes state=directory
+
+- name: Create Data directory
+  file: path={{ teamcity_data_path }} owner={{ teamcity_user }} group={{ teamcity_user }} recurse=yes state=directory
+
+- name: Create JDBC directory
+  file: path={{ teamcity_data_path }}/lib/jdbc owner={{ teamcity_user }} group={{ teamcity_user }} recurse=yes state=directory
+
+- name: Download JDBC driver
+  get_url: url={{ teamcity_jdbc_url }} dest={{ teamcity_data_path }}/lib/jdbc
+
