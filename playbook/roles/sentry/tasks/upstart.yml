@@ -15,13 +15,13 @@
     group=root
     mode=0644
 
-- name: Restart daemon and enable it for system startup
+- name: Restart sentry daemon and enable it for system startup
   service: >
     name='sentry'
     state=restarted
     enabled=yes
 
-- name: Restart daemon and enable it for system startup
+- name: Restart celery daemon and enable it for system startup
   service: >
     name='sentry-celery'
     state=restarted

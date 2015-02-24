@@ -13,6 +13,7 @@ pki_cakey: /etc/pki/cakey.pem
 
 pypiserver_login: '{{vault_pypiserver_login}}'
 pypiserver_password: '{{vault_pypiserver_password}}'
+pypiserver_ssl_passphrase: '{{vault_pypiserver_ssl_passphrase}}'
 
 teamcity_database_user: '{{vault_teamcity_database_user}}'
 teamcity_database_password: '{{vault_teamcity_database_password}}'
@@ -20,3 +21,4 @@ teamcity_database_password: '{{vault_teamcity_database_password}}'
 sentry_database_user: '{{vault_sentry_database_user}}'
 sentry_database_password: '{{vault_sentry_database_password}}'
 sentry_secretkey: '{{vault_sentry_secretkey}}'
+sentry_ssl_passphrase: '{{vault_sentry_ssl_passphrase}}'

@@ -4,12 +4,15 @@
     pkg={{item}}
     state=installed
     update-cache=yes
+    cache_valid_time=3600
   with_items:
     - python-dev
     - python-pip
     - libpq-dev
     - libxml2-dev
     - libxslt1-dev
+    - libz-dev
+    - libffi-dev
 
 - name: Create Virtualenv
   sudo_user: '{{sentry_user}}'

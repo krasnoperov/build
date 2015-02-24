@@ -5,14 +5,14 @@
   copy: src={{item}} dest=/etc/nginx/ssl/{{item}} owner=www-data group=www-data mode=0400
   register: certs
   with_items:
-    - sentry.crt
-    - sentry.key.pass
+    - pypiserver.crt
+    - pypiserver.key.pass
 
-- name: Strip ssl keys
+- name: Strip ssl key
   when: certs|changed
-  command: openssl rsa -in /etc/nginx/ssl/sentry.key.pass -out /etc/nginx/ssl/sentry.key -passin pass:{{sentry_ssl_passphrase}} creates=/etc/nginx/ssl/sentry.key
+  command: openssl rsa -in /etc/nginx/ssl/pypiserver.key.pass -out /etc/nginx/ssl/pypiserver.key -passin pass:{{pypiserver_ssl_passphrase}}
   notify: Reload nginx
 
 - name: Fix ssl key owner
   when: certs|changed
-  file: path=/etc/nginx/ssl/sentry.key owner=www-data group=www-data mode=0400
+  file: path=/etc/nginx/ssl/pypiserver.key owner=www-data group=www-data mode=0400

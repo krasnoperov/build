@@ -1,6 +1,7 @@
-[server]
-build.krasnoperov.me
+dev.krasnoperov.me ansible_ssh_user=root
 
+[server]
+dev.krasnoperov.me
 
 [gateway_servers:children]
 server

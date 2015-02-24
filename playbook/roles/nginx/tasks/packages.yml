@@ -6,4 +6,4 @@
     update-cache=yes
   with_items:
     - build-essential
-    - nginx
+    - nginx-full
