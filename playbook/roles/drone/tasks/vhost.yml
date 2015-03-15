@@ -1,0 +1,4 @@
+---
+- name: Nginx | Install nginx drone configuration file
+  notify: Reload nginx
+  template: src=drone.nginx.conf.j2 dest=/etc/nginx/sites-enabled/drone.conf

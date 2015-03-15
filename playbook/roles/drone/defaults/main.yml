@@ -1,0 +1,27 @@
+---
+drone_port: 8001
+drone_servername: 'ci.{{domain}}'
+
+drone_session_secret: 'wmEwzlgFVIJPx0UxkU82HdTeJmRJaeypIuZW1YUAlMnnPi7axOsRPxoU4Cro'
+drone_session_expires: '72h'
+
+drone_database_user: 'drone'
+drone_database_name: 'drone'
+drone_database_password: 'PF8JETlYHmfoCTlykE6zNoiqAktdExorCyDEnPeY'
+
+drone_database_driver: 'postgres'
+drone_database_datasource: 'host=127.0.0.1 user={{drone_database_user}} dbname={{drone_database_name}} password={{drone_database_password}}'
+
+drone_github_client: ''
+drone_github_secret: ''
+
+drone_bitbucket_client: 'd2gpy3XQqXgtjsrD6w'
+drone_bitbucket_secret: 'Aj7QTz7HbbhjHPMaRRQujBSBRQTZpSwQ'
+
+drone_smtp_host: 'localhost'
+drone_smtp_port: '25'
+drone_smtp_from: 'drone@{{domain}}'
+drone_smtp_user: ''
+drone_smtp_pass: ''
+
+drone_registration_is_open: true

@@ -1,0 +1,7 @@
+---
+- name: Restart drone
+  service: name=drone state=restarted
+
+- name: Reload nginx
+  service: name=nginx state=reloaded
+

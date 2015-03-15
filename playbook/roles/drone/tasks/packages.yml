@@ -1,0 +1,6 @@
+---
+- name: download latest drone release
+  get_url: url=http://downloads.drone.io/master/drone.deb dest=/tmp/drone.deb
+
+- name: install drone deb
+  apt: deb=/tmp/drone.deb state=installed

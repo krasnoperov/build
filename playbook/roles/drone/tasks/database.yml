@@ -1,0 +1,16 @@
+---
+- name: Create Drone Database User
+  sudo: True
+  sudo_user: postgres
+  postgresql_user: >
+    user={{drone_database_user}}
+    password={{drone_database_password}}
+    role_attr_flags=NOCREATEDB,NOSUPERUSER
+
+- name: Create Drone Database
+  sudo: True
+  sudo_user: postgres
+  postgresql_db: >
+    name={{drone_database_name}}
+    owner={{drone_database_user}}
+    template=template0

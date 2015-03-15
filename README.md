@@ -3,10 +3,11 @@
 Project development environment for Continuous Deployment and Crash Monitoring.
 This set of roles includes:
 
- * TeamCity
+ * Drone.io
  * Sentry
  * PyPi Server
  * Mail server
+ * Teamcity (not activated)
 
 ## Installation
 
@@ -19,7 +20,7 @@ This set of roles includes:
 All services are deployed to the single server. Check `inventory/production` for details.
 
 If basic domain is `krasnoperov.me`, then services will be available at:
- * teamcity.krasnoperov.me
+ * ci.krasnoperov.me
  * sentry.krasnoperov.me
  * pypi.krasnoperov.me
 

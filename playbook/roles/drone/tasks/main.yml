@@ -1,0 +1,5 @@
+---
+- include: packages.yml tags=drone,packages
+- include: database.yml tags=drone,database
+- include: vhost.yml tags=drone,vhost
+- include: config.yml tags=drone,config

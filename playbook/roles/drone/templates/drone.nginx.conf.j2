@@ -1,0 +1,49 @@
+upstream drone {
+    server                  127.0.0.1:{{ drone_port }};
+}
+
+#server {
+#    listen 80;
+#    server_name {{drone_servername}};
+
+#    location / {
+#      if ($request_method = GET) {
+#        rewrite  ^ https://$host$request_uri? permanent;
+#      }
+#      return 405;
+#    }
+#}
+
+server {
+
+#   listen 443 ssl;
+
+    listen 80;
+    server_name             {{drone_servername}};
+
+#    ssl on;
+#    ssl_certificate         /etc/nginx/ssl/sentry.crt;
+#    ssl_certificate_key     /etc/nginx/ssl/sentry.key;
+
+#    charset                 utf-8;
+
+    access_log              /var/log/nginx/drone.access.log;
+    error_log               /var/log/nginx/drone.error.log;
+
+    client_max_body_size 150k;
+    client_body_buffer_size 150k;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header Host $http_host;
+        proxy_set_header Origin "";
+
+        proxy_pass          drone;
+        proxy_redirect off;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}

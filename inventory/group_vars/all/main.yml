@@ -22,3 +22,4 @@ sentry_database_user: '{{vault_sentry_database_user}}'
 sentry_database_password: '{{vault_sentry_database_password}}'
 sentry_secretkey: '{{vault_sentry_secretkey}}'
 sentry_ssl_passphrase: '{{vault_sentry_ssl_passphrase}}'
+

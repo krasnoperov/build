@@ -65,3 +65,11 @@
     - sentry_servers
   roles:
     - { role: sentry }
+
+- name: Configure Drone servers
+  gather_facts: yes
+  sudo: yes
+  hosts:
+    - drone_servers
+  roles:
+    - { role: drone }

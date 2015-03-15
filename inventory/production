@@ -24,10 +24,14 @@ server
 [teamcity_servers:children]
 server
 
+[drone_servers:children]
+server
+
 [all_servers:children]
 gateway_servers
 ca_servers
 database_servers
+drone_servers
 mail_servers
 pypi_servers
 sentry_servers

@@ -1,0 +1,6 @@
+---
+- name: ensure configuration is up to date
+  template: src=drone.toml.j2 dest=/etc/drone/drone.toml
+
+- name: ensure drone is started and enabled on boot
+  service: name=drone state=running enabled=yes
