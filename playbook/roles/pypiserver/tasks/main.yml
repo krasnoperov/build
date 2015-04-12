@@ -3,5 +3,5 @@
 - include: packages.yml tags=packages,pypiserver
 - include: upstart.yml tags=upstart,pypiserver
 - include: config.yml tags=config,pypiserver
-- include: assets.yml tags=assets,pypiserver
+- include: assets.yml tags=assets,pypiserver,assets_pypi
 - include: vhost.yml tags=vhost,pypiserver
